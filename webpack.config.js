@@ -2,6 +2,7 @@ const path = require("path");
 const src = path.resolve(__dirname, "src");
 const dist = path.resolve(__dirname, "dist");
 const htmlwebpackplugin = require("html-webpack-plugin");
+const minicssextractplugin = require("mini-css-extract-plugin");
 
 module.exports = {
   entry: src + "/js/index.tsx",
@@ -15,7 +16,7 @@ module.exports = {
       },
       {
         test: /\.css$/,
-        use: ["style-loader", "css-loader"],
+        use: [minicssextractplugin.loader, "css-loader"],
       },
     ],
   },
@@ -40,6 +41,7 @@ module.exports = {
       },
       hash: true,
     }),
+    new minicssextractplugin({filename: './css/styles.css'}),
   ],
   mode: "development",
 };

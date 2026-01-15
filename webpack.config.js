@@ -18,6 +18,10 @@ module.exports = {
         test: /\.css$/,
         use: [minicssextractplugin.loader, "css-loader"],
       },
+      {
+        test: /\.html$/,
+        use: "html-loader",
+      },
     ],
   },
   resolve: {
@@ -29,19 +33,21 @@ module.exports = {
   },
   devServer: {
     static: dist,
+    watchFiles: ['public/**/*'],
     port: 3000,
     hot: true,
     open: false,
   },
   plugins: [
     new htmlwebpackplugin({
-      template: "./index.html",
+      template: "./public/index.html",
+      filename: "index.html",
       minify: {
         collapseWhitespace: true,
       },
       hash: true,
     }),
-    new minicssextractplugin({filename: './css/styles.css'}),
+    new minicssextractplugin({ filename: "./css/styles.css" }),
   ],
   mode: "development",
 };
